@@ -1,7 +1,12 @@
 package android.kimr.crystalball;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,14 +14,14 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.FloatMath;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class CrystalBall extends Activity {
-
     private TextView answerText;
-
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private float acceleration;
@@ -35,7 +40,7 @@ public class CrystalBall extends Activity {
             float delta = currentAcceleration - previousAcceleration;
             acceleration = acceleration * 0.9f + delta;
 
-            //Sensitivity
+            //Sensitivity for Shake
             if(acceleration > 15){
                 Toast toast = Toast.makeText(getApplication(), "device has shaken", Toast.LENGTH_SHORT);
                 toast.show();
@@ -45,6 +50,15 @@ public class CrystalBall extends Activity {
 
                 answerText = (TextView) findViewById(R.id.answerText);
                 answerText.setText(Predictions.get().getPredictions());
+                answerText.startAnimation(AnimationUtils.loadAnimation(CrystalBall.this, android.R.anim.slide_in_left));
+
+                /*
+                ValueAnimator =(TextView) findViewById(R.id.answerText);
+                AnimatorSet = (Predictions.get().getPredictions());
+                ObjectAnimator animation = ObjectAnimator.ofFloat(getApplicationContext(), "rotation", 0f, 360f);
+                animation.setDuration(2000);
+                animation.start();
+                */
 
             }
         }
@@ -54,7 +68,6 @@ public class CrystalBall extends Activity {
 
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

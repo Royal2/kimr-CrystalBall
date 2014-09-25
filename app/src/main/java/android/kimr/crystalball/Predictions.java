@@ -4,6 +4,7 @@ public class Predictions {
     private static Predictions predictions;
     private String[] answers;
 
+    //CrystalBallApp predictions - text
     private Predictions() {
         answers = new String[]
         {
