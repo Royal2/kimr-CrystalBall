@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 
 public class CrystalBall extends Activity {
+    private AnimationDrawable rocketAnimation;
     private TextView answerText;
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -29,6 +30,7 @@ public class CrystalBall extends Activity {
     private float previousAcceleration;
 
     private final SensorEventListener sensorListener = new SensorEventListener() {
+        //Sensor Acceleration
         @Override
         public void onSensorChanged(SensorEvent event) {
             float x = event.values[0];
@@ -40,17 +42,24 @@ public class CrystalBall extends Activity {
             float delta = currentAcceleration - previousAcceleration;
             acceleration = acceleration * 0.9f + delta;
 
-            //Sensitivity for Shake
+            //acceleration > 15 - Sensitivity for Shake
+
+            //shake notification - text
+            //media player - sound effect
+            //Prediction text slide effect - animation
             if(acceleration > 15){
+                //Shake Text Display
                 Toast toast = Toast.makeText(getApplication(), "device has shaken", Toast.LENGTH_SHORT);
                 toast.show();
 
+                //Shake sound effects
                 MediaPlayer mediaPlayer = MediaPlayer.create(getApplication(), R.raw.crystal_ball);
                 mediaPlayer.start(); // no need to call prepare(); create() does that for you
 
+                //Shake predictions text animation
                 answerText = (TextView) findViewById(R.id.answerText);
-                answerText.setText(Predictions.get().getPredictions());
-                answerText.startAnimation(AnimationUtils.loadAnimation(CrystalBall.this, android.R.anim.slide_in_left));
+                answerText.setText(Predictions.get().getPredictions()); //fetching prediction message
+                answerText.startAnimation(AnimationUtils.loadAnimation(CrystalBall.this, android.R.anim.slide_in_left)); //selecting animation --> starts animation
 
                 /*
                 ValueAnimator =(TextView) findViewById(R.id.answerText);
@@ -68,6 +77,7 @@ public class CrystalBall extends Activity {
 
         }
     };
+    //create, resume, pause.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
