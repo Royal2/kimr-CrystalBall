@@ -1,16 +1,41 @@
 package android.kimr.crystalball;
 
+import java.util.Random;
+
 public class Predictions {
     private static Predictions predictions;
     private String[] answers;
+
+
+    //Random answers = new Random();----------------
 
     //CrystalBallApp predictions - text
     private Predictions() {
         answers = new String[]
         {
-            "Your wishes will come true.",
-            "Your wishes will NEVER come true."
+            "10% chance.",
+            "20% chance.",
+            "20% chance.",
+            "30% chance.",
+            "30% chance.",
+            "30% chance.",
+            "40% chance.",
+            "40% chance.",
+            "40% chance.",
+            "40% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance.",
+            "50% chance."
+
         };
+        //return answers;-------------
     }
 
     public static Predictions get() {
@@ -22,6 +47,7 @@ public class Predictions {
     }
 
     public String getPredictions() {
-        return answers[1];
+        Random predictions = new Random();
+        return answers[predictions.nextInt(answers.length)];
     }
 }

@@ -63,6 +63,16 @@ public class CrystalBall extends Activity {
                 AnimationDrawable sphex = (AnimationDrawable) sphereAnimation.getBackground();
                 sphex.start();
 
+                if(sphex.isRunning())
+                {
+                    sphex.stop();
+                    sphex.start();
+                }
+                else
+                {
+                    sphex.start();
+                }
+
                 /*
                 ValueAnimator =(TextView) findViewById(R.id.answerText);
                 AnimatorSet = (Predictions.get().getPredictions());
