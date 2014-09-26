@@ -1,9 +1,5 @@
 package android.kimr.crystalball;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
@@ -14,14 +10,14 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.FloatMath;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class CrystalBall extends Activity {
-    private AnimationDrawable rocketAnimation;
+    private AnimationDrawable sphereAnimation;
     private TextView answerText;
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -61,6 +57,12 @@ public class CrystalBall extends Activity {
                 answerText.setText(Predictions.get().getPredictions()); //fetching prediction message
                 answerText.startAnimation(AnimationUtils.loadAnimation(CrystalBall.this, android.R.anim.slide_in_left)); //selecting animation --> starts animation
 
+                ImageView sphereAnimation = (ImageView) findViewById(R.id.sphereAnim);
+                sphereAnimation.setBackgroundResource(R.drawable.animation);
+
+                AnimationDrawable sphex = (AnimationDrawable) sphereAnimation.getBackground();
+                sphex.start();
+
                 /*
                 ValueAnimator =(TextView) findViewById(R.id.answerText);
                 AnimatorSet = (Predictions.get().getPredictions());
@@ -89,6 +91,9 @@ public class CrystalBall extends Activity {
         acceleration = 0.0f;
         currentAcceleration = SensorManager.GRAVITY_EARTH;
         previousAcceleration = SensorManager.GRAVITY_EARTH;
+
+        ImageView sphereAnimation = (ImageView) findViewById(R.id.sphereAnim);
+        sphereAnimation.setBackgroundResource(R.drawable.ball01);
     }
 
     @Override
